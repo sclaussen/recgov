@@ -1,0 +1,172 @@
+active:
+- yosemite
+- sequoia
+- sierra national forest
+- golden gate
+- stanislaus
+
+inactive:
+- joshua tree
+- zion
+- bryce
+- los padres
+- lassen
+- pinnacles
+
+criteria:
+
+  include:
+  - name: summer
+    dates:
+    - 06/15-08/22
+
+  include-extra:
+
+  exclude:
+  - name: big sur
+    dates:
+    - 04/03
+  - name: curry village
+    dates:
+    - 04/09-04/10
+  - name: tollhouse
+    dates:
+    - 04/11
+  - name: jumbo rocks
+    dates:
+    - 04/12-04/14
+  - name: north pines
+    dates:
+    - 04/25
+  - name: north pines
+    dates:
+    - 06/12-06/14
+  - name: wawona
+    dates:
+    - 06/25-06/26
+  - name: tuolumne
+    dates:
+    - 07/16-07/17
+  - name: aloha lake
+    dates:
+    - 08/19
+
+locations:
+
+- name: sierra national forest
+  campgrounds:
+  - name: dinkey creek
+    id: 232136
+  - name: catavee
+    id: 232811
+  - name: deer creek
+    id: 232813
+  - name: dorabelle
+    id: 232821
+  - name: fish creek
+    id: 232820
+  - name: kinnikinnick
+    id: 232814
+  - name: lupine
+    id: 232802
+  - name: soquel
+    id: 232881
+  - name: spring cove
+    id: 232801
+  - name: upper billy creek
+    id: 232810
+  - name: wishon bass lake
+    id: 232911
+
+- name: zion
+  campgrounds:
+  - name: south
+    id: 272266
+  - name: watchman
+    id: 232445
+
+- name: bryce
+  campgrounds:
+  - name: north
+    id: 234058
+  - name: sunset
+    id: 234079
+
+- name: yosemite
+  campgrounds:
+  - name: upper pines
+    id: 232447
+  - name: north pines
+    id: 232449
+  - name: lower pines
+    id: 232450
+  - name: tuolumne meadows
+    id: 232448
+  other:
+  - name: wawona
+    id: 232446
+  - name: bridalveil
+    id: 232453
+  - name: hogdon meadows
+    id: 232451
+  - name: crane flat
+    id: 232452
+
+- name: los padres
+  campgrounds:
+  - name: kirk creek
+    id: 233116
+  - name: plaskett creek
+    id: 231959
+
+- name: golden gate
+  campgrounds:
+  - name: bicentennial
+    id: 272229
+
+- name: stanislaus
+  campgrounds:
+  - name: pinecrest
+    id: 232254
+  - name: sheep pass
+    id: 232470
+  - name: indian cove
+    id: 232472
+
+- name: joshua tree
+  campgrounds:
+  - name: jumbo rocks
+    id: 272300
+
+- name: sequoia
+  campgrounds:
+  - name: potwisha
+    id: 249979
+  - name: lodgepole
+    id: 232461
+  - name: buckeye flat
+    id: 249982
+  - name: sunset
+    id: 234752
+  - name: dorst
+    id: 232460
+  - name: sentinel
+    id: 253917
+  - name: crystal springs
+    id: 251008
+
+- name: lassen
+  campgrounds:
+  - name: manzanita lake
+    id: 234039
+  - name: summit lake south
+    id: 234040
+  - name: summit lake north
+    id: 234041
+  - name: butte
+    id: 234156
+
+- name: pinnacles
+  campgrounds:
+  - name: pinnacles
+    id: 234015
