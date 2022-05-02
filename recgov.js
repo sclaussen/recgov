@@ -10,9 +10,10 @@ const YAML = require('yaml');
 
 const Config = require('./Config');
 const Campground = require('./Campground');
-const curl = require('./curl');
-const p = require('./pr').p(d);
-const p4 = require('./pr').p4(d);
+
+const curl = require('./lib/curl');
+const p = require('./lib/pr').p(d);
+const p4 = require('./lib/pr').p4(d);
 
 
 var campgrounds = [];
@@ -29,13 +30,13 @@ var config = new Config();
 //   https://weather-gov.github.io/api/general-faqs
 //
 // - Campground site metadata
-//   curl 'https://www.recreation.gov/api/search/campsites?fq=asset_id%3A232446'
+//   curl 'https://www.recreation.gov/api/search/campsites?fq=asset_id%3A232446' | python -m json.tool
 //
-// - Campsite release infomration: what is released, when will new be released
+// - Campsite release information: what is released, when will new be released
 //   curl 'https://www.recreation.gov/api/camps/campgrounds/232446/releases'
 //
 // - Campground Longitude & Latitude:
-//   https://www.recreation.gov/api/search/amenities?fq=parent_asset_id%3A232446&size=500'
+//   curl 'https://www.recreation.gov/api/search/amenities?fq=parent_asset_id%3A232446&size=500'
 //
 // - Location/Destination/Recarea Latitude & Longitude:
 //   https://www.recreation.gov/api/search?fq=entity_type%3Arecarea&fq=entity_id%3A2893
@@ -45,11 +46,26 @@ recgov(process.argv);
 async function recgov(args) {
 
     for (let campgroundId of config.campgrounds) {
+
+        // Get the basic overview information about each of the
+        // config's "active" campgrounds and their destinations.
+        //
+        // name: Upper Pines
+        // id: 232447
+        // url: https://www.recreation.gov/camping/campgrounds/232447/availability
+        // latitude: "37.73611110000000"
+        // longitude: "-119.56250000000000"
+        // destination:
+        //   name: YosemiteNatPark
+        //   id: "2991"
+        //   url: https://www.recreation.gov/camping/gateways/2991
         let campground = await (new Campground(campgroundId)).init();
-        process.stdout.write(campground.name);
+        console.log(campground.name);
+        process.stdout.write('    ');
+
         for (let month of getMonthsToQuery()) {
             // console.log(campground.name + ' ' + month.format('MMMM') + '...');
-            process.stdout.write(' ' + month.format('MMMM'));
+            process.stdout.write(month.format('MMMM') + '  ');
 
             let monthFormatted = month.format().replace('Z', '').replaceAll(':', '%3A') + '.000Z';
             let response = (await curl.get('https://www.recreation.gov/api/camps/availability/campground/' + campgroundId + '/month?start_date=' + monthFormatted)).body;
@@ -78,8 +94,11 @@ async function recgov(args) {
 // quantities:
 function mineCampsite(campground, campsite) {
 
-    if (!correctType(campsite)) {
-        return;
+    switch (campsite.campsite_type) {
+    case 'CABIN ELECTRIC':
+    case 'CABIN NONELECTRIC':
+    case 'MANAGEMENT':
+        return false;
     }
 
     for (let day of _.keys(campsite.availabilities)) {
@@ -109,22 +128,11 @@ function mineCampsite(campground, campsite) {
 }
 
 
-function correctType(campsite) {
-    switch (campsite.campsite_type) {
-    case 'CABIN ELECTRIC':
-    case 'CABIN NONELECTRIC':
-    case 'MANAGEMENT':
-        return false;
-    }
-
-    return true;
-}
-
-
 function available(campsite, day) {
 
     // Is the campsite available on the given day?
     switch (campsite.availabilities[day]) {
+    case 'Lottery':
     case 'Reserved':
     case 'Not Available':
     case 'Not Reservable':
@@ -168,9 +176,7 @@ function getMonthsToQuery() {
     let month3 = moment(month2).add(1, 'months');
     let month4 = moment(month3).add(1, 'months');
     let month5 = moment(month3).add(1, 'months');
-    // return [ month2 ];
-    // return [ month1, month2, month3, month4, month5 ];
-    return [ month1, month2, month3, month4 ];
+    return [ month1, month2, month3, month4, month5 ];
 }
 
 
@@ -187,17 +193,6 @@ function print() {
             console.log(campsite.dow + ' ' + date);
         }
 
-        let minMax = '';
-        let wind = '';
-        let description = '';
-        if (campsite.campground.weather[campsite.dow + ' ' + date]) {
-            minMax = campsite.campground.weather[campsite.dow + ' ' + date].min + '/' + campsite.campground.weather[campsite.dow + ' ' + date].max;
-            wind = campsite.campground.weather[campsite.dow + ' ' + date].wind;
-            description = campsite.campground.weather[campsite.dow + ' ' + date].description;
-        }
-        p(minMax);
-        p(wind);
-        p(description);
         console.log(util.format('  %s %s %s %s %s %s',
                                 campsite.campground.destination.name.padEnd(30),
                                 (campsite.campground.name + ' (' + campsite.name + ')').padEnd(24),
