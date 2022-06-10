@@ -5,7 +5,7 @@ queries:
       - 7/2-7/4
 
   - name: rmnp
-    active: true
+    active: false
     date-ranges:
       - 7/25-7/27
     locations:
@@ -18,6 +18,11 @@ queries:
     active: false
     date-ranges:
       - 04/28-04/29
+
+  - name: week1
+    active: false
+    date-ranges:
+      - 6/13-6/17
 
 locations:
 
@@ -36,13 +41,13 @@ locations:
         active: false
       - name: crane flat
         id: 232452
-        active: true
+        active: false
       - name: dry gulch
         id: 233842
         active: true
       - name: tuolumne meadows
         id: 232448
-        active: true
+        active: false
       - name: camp4
         id: 10004152
         active: true
@@ -51,10 +56,10 @@ locations:
         active: false
       - name: bridalveil
         id: 232453
-        active: true
+        active: false
 
   - name: rocky mountain national park
-    active: true
+    active: false
     campgrounds:
       - name: glacier basin
         id: 232462
@@ -64,7 +69,7 @@ locations:
         id: 260552
 
   - name: sierra national forest
-    active: true
+    active: false
     campgrounds:
       - name: dinkey creek
         id: 232136
@@ -90,7 +95,7 @@ locations:
         id: 232911
 
   - name: zion
-    active: true
+    active: false
     campgrounds:
       - name: south
         id: 272266
@@ -98,7 +103,7 @@ locations:
         id: 232445
 
   - name: bryce
-    active: true
+    active: false
     campgrounds:
       - name: north
         id: 234058
@@ -106,7 +111,7 @@ locations:
         id: 234079
 
   - name: los padres
-    active: true
+    active: false
     campgrounds:
       - name: kirk creek
         id: 233116
@@ -114,13 +119,13 @@ locations:
         id: 231959
 
   - name: golden gate
-    active: true
+    active: false
     campgrounds:
       - name: bicentennial
         id: 272229
 
   - name: stanislaus
-    active: true
+    active: false
     campgrounds:
       - name: pinecrest
         id: 232254
@@ -130,13 +135,13 @@ locations:
         id: 232472
 
   - name: joshua tree
-    active: true
+    active: false
     campgrounds:
       - name: jumbo rocks
         id: 272300
 
   - name: sequoia
-    active: true
+    active: false
     campgrounds:
       - name: potwisha
         id: 249979
@@ -154,7 +159,7 @@ locations:
         id: 251008
 
   - name: lassen
-    active: true
+    active: false
     campgrounds:
       - name: manzanita lake
         id: 234039
@@ -166,7 +171,7 @@ locations:
         id: 234156
 
   - name: pinnacles
-    active: true
+    active: false
     campgrounds:
       - name: pinnacles
         id: 234015
